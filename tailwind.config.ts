@@ -9,5 +9,11 @@ export default {
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {
+      backgroundColor: ['background-clip'],
+      backgroundImage: ['background-clip'],
+    },
+  },
   plugins: [],
 } satisfies Config;
