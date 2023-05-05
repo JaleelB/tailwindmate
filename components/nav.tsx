@@ -38,43 +38,35 @@ export default function Nav(){
     const [selectedTab, setSelectedTab] = useState(navItems[0]?.type);
     
     return (
-        <>
-            <nav className='w-full'>
-                <div className="flex justify-center border w-full sm:w-fit border-neutral-700 rounded-md">
-                    {navItems.map((item) => (
-                        <Link 
-                            key={item.type} 
-                            href={item.href}
-                            className={`flex items-center px-3 py-3 gap-1 ${
-                                selectedTab === item.type
-                                    ? 'bg-neutral-800'
-                                    : 'text-white'
-                                } ${
-                                item.type === 'to-tailwind'
-                                    ? 'border-r border-neutral-700'
-                                    : 'border-l border-neutral-700'
-                                }
-                                transition-all duration-200 
-                                text-white text-sm ease-in-out
-                                w-full sm:w-36`
+        <nav className='w-full'>
+            <div className="flex justify-center border w-full sm:w-fit border-neutral-700 rounded-md">
+                {navItems.map((item) => (
+                    <Link 
+                        key={item.type} 
+                        href={item.href}
+                        className={`flex items-center justify-center px-3 py-3 ${
+                            selectedTab === item.type
+                                ? 'bg-neutral-800'
+                                : 'text-white'
+                            } ${
+                            item.type === 'to-tailwind'
+                                ? 'border-r border-neutral-700'
+                                : 'border-l border-neutral-700'
                             }
-                            onClick={() => setSelectedTab(item.type)}
-                        >
+                            transition-all duration-200 
+                            text-white text-sm ease-in-out
+                            w-full sm:w-36`
+                        }
+                        onClick={() => setSelectedTab(item.type)}
+                    >
+                        <div className='flex gap-1'>
                             {item.icon}
                             <span>{item.text}</span>
-                        
-                        </Link>
-                    ))}
-                </div>
-            </nav>
-            <p className="text-neutral-500 text-base mt-5 sm:mt-3 max-w-[700px] text-center lg:text-left mx-auto lg:mx-0">
-                {
-                selectedTab  === 'to-tailwind'
-                    ? 'Enter your color code below to convert it to Tailwind CSS color classes.'
-                    : 'Enter the Tailwind CSS color class below to get the equivalent color code in various formats.'
-                }
-            </p>
-        </>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        </nav>
     )
 }
 
