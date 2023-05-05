@@ -1,15 +1,21 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 interface ColorComponentProps {
   type: string
+  placeholder: string
 }
 
-function ColorComponent({ type }: ColorComponentProps) {
-  const [color, setColor] = useState('#009abc');
+function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
-  const handleColorChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
-    setColor(event.target.value);
+  const [inputColor, setInputColor] = useState('');
+  const displayedColorRef = useRef('#009abc');
+
+  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputColor(event.target.value);
+    if (event.target.value) {
+      displayedColorRef.current = event.target.value;
+    }
   };
 
   return (
@@ -17,14 +23,15 @@ function ColorComponent({ type }: ColorComponentProps) {
       <div className="flex justify-between w-full bg-neutral-800 p-2">
         <input
           type="text"
-          value={color}
+          value={inputColor}
+          placeholder={placeholder}
           onChange={handleColorChange}
-          className="p-2 w-64 text-white bg-neutral-900 rounded-md"
+          className="p-2 w-full sm:w-72 text-white bg-neutral-900 rounded-md"
         />
       </div>
       <div className="flex justify-center w-full">
         <div
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: displayedColorRef.current }}
           className="h-32 m-2 w-full rounded-md"
         ></div>
       </div>
