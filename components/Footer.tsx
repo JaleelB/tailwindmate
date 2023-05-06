@@ -19,7 +19,7 @@ interface NavigationItem {
     },
     {
       name: "GitHub",
-      href: "https://github.com/JaleelB/devops-cloud-status",
+      href: "https://github.com/JaleelB",
       icon: (props) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
