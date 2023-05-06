@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import React, { type SVGProps } from 'react'
+import Link from 'next/link';
+import React, { type SVGProps } from 'react';
 
 interface NavigationItem {
     name: string;
@@ -40,9 +40,9 @@ const Footer = () => {
     return (
         <footer className='px-4 md:px-8 pt-16 pb-8 md:pb-12 w-screen bottom-0'>
             <div className='
-                    w-full mx-auto max-w-[1200px] text-neutral-500
-                    flex flex-col sm:flex-row justify-between md:items-center
-                    font-normal
+                  w-full mx-auto max-w-[1200px] text-neutral-500
+                  flex flex-col sm:flex-row justify-between md:items-center
+                  font-normal
                 '
             >
                 <p className="flex md:justify-center pt-8 text-xs leading-5 text-neutral-500">

@@ -1,9 +1,12 @@
 import React, { useState, useRef } from 'react';
+import namer, { type Color } from 'color-namer';
+import chroma from 'chroma-js';
 
-interface ColorComponentProps {
+type ColorComponentProps = {
   type: string;
   placeholder: string;
 }
+
 
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
   const [inputColor, setInputColor] = useState('');
@@ -12,10 +15,15 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputColor(event.target.value);
-    if (event.target.value) {
+    if (
+      event.target.value &&
+      typeof chroma.valid === "function" &&
+      chroma.valid(event.target.value)
+    ) {
       displayedColorRef.current = event.target.value;
     }
   };
+  
 
   const handleColorCopy = async () => {
     try {
@@ -32,6 +40,18 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       }, 4000);
     }
   };
+
+  const getColorName = (colorCode: string): Color => {
+    if ((chroma.valid as (color: string) => boolean)(colorCode)) {
+      const colorNames = namer(colorCode);
+      return colorNames.ntc[0] || { name: 'Unknown', hex: '', distance: -1 };
+    } else {
+      return { name: 'Invalid', hex: '', distance: -1 };
+    }
+  };
+  
+  
+  
 
   return (
     <div className="w-full border border-neutral-700 rounded-md mt-12">
@@ -50,14 +70,51 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           className="h-32 m-2 w-full rounded-md relative cursor-pointer"
         >
           <div className="absolute inset-0 flex items-center justify-center text-black">
-            <span>
-              {inputColor || type}: {displayedColorRef.current}
-            </span>
+            <div className='font-medium flex flex-col gap-1 text-center'>
+              <span className='text-2xl'>{getColorName(displayedColorRef.current).name}</span>
+              <span className='uppercase text-sm'>{displayedColorRef.current}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+      {copyMessage && (
+        <div
+          className={`fixed bottom-4 md:bottom-8 right-0 md:right-4 mt-4 mr-4 text-white py-3 px-8 rounded-md cursor-pointer ${
+            copyMessage === 'Color copied successfully!' ? 'shadow-success bg-green-800 border border-green-600 ' : 'shadow-error bg-red-800 border border-red-600'
+          }`}
+        >
+          {copyMessage === 'Color copied successfully!' ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-5 h-5 inline mr-2"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clipRule="evenodd"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-5 h-5 inline mr-2"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-13a1 1 0 112 0v6a1 1 0 11-2 0V5zm1 11a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
+            </svg>
+          )}
+            <p className="inline">{copyMessage}</p>
+        </div>
+      )}
+  </div>
+);
 }
 
 export default ColorComponent;
