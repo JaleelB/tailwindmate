@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import namer, { type Color } from 'color-namer';
 import chroma from 'chroma-js';
+// import { printColors } from 'scripts/toTailwind';
 
 type ColorComponentProps = {
   type: string;
@@ -9,6 +10,9 @@ type ColorComponentProps = {
 
 
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
+
+  // console.log("tailwind colors: ", printColors())
+
   const [inputColor, setInputColor] = useState('');
   const [copyMessage, setCopyMessage] = useState('');
   const displayedColorRef = useRef('#43e5a2');
@@ -21,8 +25,9 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       chroma.valid(event.target.value)
     ) {
       displayedColorRef.current = event.target.value;
-    }
+      }
   };
+  
   
 
   const handleColorCopy = async () => {
@@ -72,7 +77,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           <div className="absolute inset-0 flex items-center justify-center text-black">
             <div className='font-medium flex flex-col gap-1 text-center'>
               <span className='text-2xl'>{getColorName(displayedColorRef.current).name}</span>
-              <span className='uppercase text-sm'>{displayedColorRef.current}</span>
+              <span className='uppercase text-sm p-1'>{displayedColorRef.current}</span>
             </div>
           </div>
         </div>

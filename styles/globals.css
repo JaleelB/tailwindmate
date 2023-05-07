@@ -26,5 +26,13 @@ h1,h2,h3,h3,h5{
     100% {
       background-position: 0% 50%;
     }
-  }
+}
+
+.shadow-success {
+  box-shadow: 0 4px 6px rgba(72, 187, 120, 0.4);
+}
+
+.shadow-error {
+  box-shadow: 0 4px 6px rgba(245, 101, 101, 0.4);
+}
   
