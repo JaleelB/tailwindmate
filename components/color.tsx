@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import namer, { type Color } from 'color-namer';
 import chroma from 'chroma-js';
-// import { printColors } from 'scripts/toTailwind';
+import colorToTailwindClass from 'scripts/toTailwind';
 
 type ColorComponentProps = {
   type: string;
@@ -11,9 +11,8 @@ type ColorComponentProps = {
 
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
-  // console.log("tailwind colors: ", printColors())
-
   const [inputColor, setInputColor] = useState('');
+  const [tailwindColor, setTailwindColor] = useState("");
   const [copyMessage, setCopyMessage] = useState('');
   const displayedColorRef = useRef('#43e5a2');
 
@@ -25,7 +24,11 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       chroma.valid(event.target.value)
     ) {
       displayedColorRef.current = event.target.value;
-      }
+      const closestTailwindColor = colorToTailwindClass(event.target.value);
+      setTailwindColor(closestTailwindColor);
+    } else {
+      setTailwindColor(""); // Clear the tailwind color if the input is not valid
+    }
   };
   
   
@@ -72,12 +75,13 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       <div className="flex justify-center w-full" onClick={() => void handleColorCopy()}>
         <div
           style={{ backgroundColor: displayedColorRef.current }}
-          className="h-32 m-2 w-full rounded-md relative cursor-pointer"
+          className={`h-32 m-2 w-full rounded-md relative cursor-pointer ${tailwindColor !== "" ? `bg-${tailwindColor}` : ''}`}
         >
           <div className="absolute inset-0 flex items-center justify-center text-black">
             <div className='font-medium flex flex-col gap-1 text-center'>
               <span className='text-2xl'>{getColorName(displayedColorRef.current).name}</span>
               <span className='uppercase text-sm p-1'>{displayedColorRef.current}</span>
+              {tailwindColor && <span className='text-sm p-1'>{tailwindColor}</span>}
             </div>
           </div>
         </div>
