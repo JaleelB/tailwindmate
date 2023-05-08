@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 export default function Page(){
   return (
     <section className='w-full max-w-[1200px] mx-auto'>

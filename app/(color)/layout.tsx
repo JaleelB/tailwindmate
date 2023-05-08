@@ -11,7 +11,7 @@ export default function ColorLayout({
     return (
         <div className="page">
             <Header/>
-                <main className="w-screen h-screen py-20 px-8 bg-neutral-900">
+                <main className="w-screen min-h-screen py-20 px-8 bg-neutral-900">
                     <section className="w-full max-w-[1200px] mx-auto flex justify-center flex-col lg:flex-row lg:justify-between">
                         <div className="w-full mb-8 lg:mb-0">
                             <h1 className="hidden sm:block text-3xl md:text-4xl text-center lg:text-left">
