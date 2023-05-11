@@ -1,16 +1,24 @@
 declare module 'chroma-js' {
-  export interface Chroma {
-    (color: string): ChromaInstance;
-    distance(color: chroma.Color, arg1: never): never;
-    valid: (color: string) => boolean;
+  import type { Color as CustomColor } from '../scripts/toTailwind';
+
+  export type Color = string | CustomColor | [number, number, number];
+
+  export interface ChromaStatic {
+    (color: Color): ChromaInstance;
+    rgb(r: number, g: number, b: number): ChromaInstance;
+    hsl(h: number, s: number, l: number, a?: number): ChromaInstance;
+    valid(color: string): boolean;
   }
 
   export interface ChromaInstance {
+    get(arg0: string): unknown;
+    lab(): [number, number, number];
+    rgb(): [number, number, number];
+    rgba(): [number, number, number, number];
     hex(): string;
+    alpha(): number;
   }
 
-  const chroma: Chroma;
-  export default chroma;
+  const chroma: ChromaStatic;
+  export = chroma;
 }
-
-  
