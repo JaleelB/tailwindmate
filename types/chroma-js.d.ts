@@ -11,6 +11,7 @@ declare module 'chroma-js' {
   }
 
   export interface ChromaInstance {
+    hsl(): number[];
     get(arg0: string): unknown;
     lab(): [number, number, number];
     rgb(): [number, number, number];
