@@ -1,23 +1,6 @@
+import { type TailwindColors, twColors, type Color } from "@/types/colors";
 import chroma from "chroma-js";
-import * as tailwindColors from "tailwindcss/colors";
 
-
-export type Color = {
-  r: number;
-  g: number;
-  b: number;
-  a?: number;
-}
-
-type TailwindColor = string | {
-  [shade: number]: Color;
-};
-
-type TailwindColors = {
-  [key: string]: TailwindColor;
-};
-
-const twColors = tailwindColors as unknown as TailwindColors;
 
 function isColorHexValue(color: string): boolean {
   return /^#([0-9a-f]{3,8})$/i.test(color);
@@ -43,7 +26,7 @@ function findColorInTailwind(hexColor: string, tailwindColors: TailwindColors): 
       }
     } else if (typeof color === "object") {
       for (const [shade, shadeColor] of Object.entries(color)) {
-        if (typeof shadeColor === "string" && (shadeColor as string).toLowerCase() === hexColor.toLowerCase()) {
+        if (typeof shadeColor === "string" && (shadeColor).toLowerCase() === hexColor.toLowerCase()) {
           return [colorName, shade];
         }
       }
