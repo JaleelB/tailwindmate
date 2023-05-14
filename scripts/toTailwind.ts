@@ -85,13 +85,10 @@ export default function colorToTailwindClass(colorInput: string): string {
   if (isTailwindColorName) {
     if(
       colorInput.toLowerCase() === "white" || 
-      colorInput.toLowerCase() === "black" ||
-      colorInput.toLowerCase() === "transparent" ||
-      colorInput.toLowerCase() === "inherit"
+      colorInput.toLowerCase() === "black"
     ){
       return colorInput.toLowerCase();
     }
-    return `${colorInput.toLowerCase()}-500`;
   }
 
   const isValidColor = chroma.valid(colorInput);

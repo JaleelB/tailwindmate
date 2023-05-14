@@ -10,15 +10,19 @@ type ColorCodes = {
     hex: string;
 }
 
-export function findColorInTailwind(tailwindClass: string): string | null {
+export function findColorInTailwind(tailwindClass: string): string {
+
+    if(tailwindClass.toLowerCase() === "white" || tailwindClass.toLowerCase() ===  "#fff" || tailwindClass.toLowerCase() === "#ffffff") return "#ffffff";
+    if(tailwindClass.toLowerCase() === "black" || tailwindClass.toLowerCase() ===  "#000" || tailwindClass.toLowerCase() === "#000000") return "#000000";
+
     const tailwindClassArr = removePrefixesAndAddToArr(tailwindClass);
     const colorName = tailwindClassArr[0];
     const shade = tailwindClassArr[1] || '500';
     const color = twColors[colorName as string];
     if (color && shade in color) {
-        return (color as { [shade: string]: string })[shade] || null;
+        return (color as { [shade: string]: string })[shade] || "";
     } else {
-        return null;
+        return "";
     }
 }
 
