@@ -1,39 +1,42 @@
 import React, { useState, useRef } from 'react';
 import namer, { type Color } from 'color-namer';
 import chroma from 'chroma-js';
-import colorToTailwindClass from 'scripts/toTailwind';
+import colorToTailwindClass from '@/scripts/toTailwind';
+import { findColorInTailwind } from '@/scripts/fromTailwind';
 
 type ColorComponentProps = {
   type: string;
   placeholder: string;
 }
 
-
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
+  
   const [inputColor, setInputColor] = useState('');
-  const [tailwindColor, setTailwindColor] = useState("");
+  const displayedColorRef = useRef('teal-500');
+  const colorName = useRef(getColorName('#43e5a2').name);
   const [copyMessage, setCopyMessage] = useState('');
-  const displayedColorRef = useRef('#43e5a2');
+  const lastValidColor = useRef('#43e5a2');
 
-  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
     setInputColor(event.target.value);
     if (
       event.target.value &&
       typeof chroma.valid === "function" &&
       chroma.valid(event.target.value)
     ) {
-      displayedColorRef.current = event.target.value;
       const closestTailwindColor = colorToTailwindClass(event.target.value);
-      setTailwindColor(closestTailwindColor);
+      displayedColorRef.current = closestTailwindColor
+      colorName.current = getColorName(event.target.value).name
+      lastValidColor.current = event.target.value; 
     } else {
-      setTailwindColor(""); // Clear the tailwind color if the input is not valid
+      displayedColorRef.current = lastValidColor.current; 
+      colorName.current = getColorName(lastValidColor.current).name;
     }
-  };
-  
-  
+  }
 
-  const handleColorCopy = async () => {
+  async function handleColorCopy () {
     try {
       await navigator.clipboard.writeText(displayedColorRef.current);
       setCopyMessage(`Color copied successfully!`);
@@ -47,18 +50,16 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
         setCopyMessage('');
       }, 4000);
     }
-  };
+  }
 
-  const getColorName = (colorCode: string): Color => {
+  function getColorName (colorCode: string): Color {
     if ((chroma.valid as (color: string) => boolean)(colorCode)) {
       const colorNames = namer(colorCode);
       return colorNames.ntc[0] || { name: 'Unknown', hex: '', distance: -1 };
     } else {
       return { name: 'Invalid', hex: '', distance: -1 };
     }
-  };
-  
-  
+  }
   
 
   return (
@@ -74,14 +75,13 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       </div>
       <div className="flex justify-center w-full" onClick={() => void handleColorCopy()}>
         <div
-          style={{ backgroundColor: displayedColorRef.current }}
-          className={`h-32 m-2 w-full rounded-md relative cursor-pointer ${tailwindColor !== "" ? `bg-${tailwindColor}` : ''}`}
+          style={{ backgroundColor: findColorInTailwind(displayedColorRef.current, lastValidColor.current) }}
+          className="h-32 m-2 w-full rounded-md relative cursor-pointer"
         >
           <div className="absolute inset-0 flex items-center justify-center text-black">
             <div className='font-medium flex flex-col gap-1 text-center'>
-              <span className='text-2xl'>{getColorName(displayedColorRef.current).name}</span>
-              <span className='uppercase text-sm p-1'>{displayedColorRef.current}</span>
-              {tailwindColor && <span className='text-sm p-1'>{tailwindColor}</span>}
+              <span className='text-2xl'>{colorName.current}</span>
+              <span className='text-sm p-1'>{displayedColorRef.current}</span>  
             </div>
           </div>
         </div>
