@@ -4,6 +4,7 @@ declare module 'chroma-js' {
   export type Color = string | CustomColor | [number, number, number];
 
   export interface ChromaStatic {
+    contrast(bgColor: string, arg1: string): unknown;
     (color: Color): ChromaInstance;
     rgb(r: number, g: number, b: number): ChromaInstance;
     hsl(h: number, s: number, l: number, a?: number): ChromaInstance;
