@@ -4,6 +4,7 @@ import chroma from 'chroma-js';
 import colorToTailwindClass from '@/scripts/toTailwind';
 import { findColorInTailwind } from '@/scripts/fromTailwind';
 import Popup from './popup';
+import ColorPreview from './preview';
 
 type ColorComponentProps = {
   type: string;
@@ -18,6 +19,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
   const colorName = useRef(getColorName(type === "to-tailwind" ? '#43e5a2' : "#E11D48").name);
   const [copyMessage, setCopyMessage] = useState('');
   const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
+  const [showColorPreview, setShowColorPreview] = useState(false);
 
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
     setInputColor(event.target.value);
@@ -65,6 +67,9 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     setInputColor('');
   }
 
+  function showPreview() {
+    setShowColorPreview(showColorPreview => !showColorPreview);
+  }
 
   function getTextColor (bgColor: string): string {
     const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
@@ -113,9 +118,25 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
         </div>
       </div>
     </div>
+
+    {type === "to-tailwind" && 
+      <button 
+        className="mt-5 sm:mt-3 text-neutral-400 bg-neutral-800 hover:bg-neutral-700 py-2 px-6 font-medium rounded-full"
+        onClick={showPreview}
+      >
+       { !showColorPreview ? 'Show color preview' : 'Hide color preview'}
+      </button>
+    }
     
     {copyMessage && (
       <Popup copyMessage={copyMessage} />
+    )}
+
+    {showColorPreview && (
+      <ColorPreview 
+        originalColor={lastValidColor.current}
+        tailwindColor={displayedColorRef.current}
+      />
     )}
   </>
 );
