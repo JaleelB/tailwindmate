@@ -14,11 +14,10 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
   
   const [inputColor, setInputColor] = useState('');
-  const displayedColorRef = useRef('teal-500');
-  const colorName = useRef(getColorName('#43e5a2').name);
+  const displayedColorRef = useRef(type === "to-tailwind" ? "teal-500" : "rose-600");
+  const colorName = useRef(getColorName(type === "to-tailwind" ? '#43e5a2' : "#E11D48").name);
   const [copyMessage, setCopyMessage] = useState('');
-  const lastValidColor = useRef('#43e5a2');
-
+  const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
 
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
     setInputColor(event.target.value);
@@ -62,6 +61,11 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     }
   }
 
+  function clearInput () {
+    setInputColor('');
+  }
+
+
   function getTextColor (bgColor: string): string {
     const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
     const blackContrast = chroma.contrast(bgColor, '#292524') as number;
@@ -69,12 +73,9 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     return whiteContrast > blackContrast ? '#E5E5E5' : '#292524';
   }
 
-  function clearInput () {
-    setInputColor('');
-  }
-  
 
   return (
+    <>
     <div className="w-full border border-neutral-700 rounded-md mt-12">
       <div className="w-full bg-neutral-800 p-2 relative">
         <input
@@ -111,11 +112,12 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           </div>
         </div>
       </div>
-      
-      {copyMessage && (
-        <Popup copyMessage={copyMessage} />
-      )}
-  </div>
+    </div>
+    
+    {copyMessage && (
+      <Popup copyMessage={copyMessage} />
+    )}
+  </>
 );
 }
 
