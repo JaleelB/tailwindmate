@@ -14,8 +14,8 @@ type ColorComponentProps = {
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
   
-  const [inputColor, setInputColor] = useState('');
-  const displayedColorRef = useRef(type === "to-tailwind" ? "teal-500" : "rose-600");
+  const [inputColor, setInputColor] = useState(type === "to-tailwind" ? "#43e5a2" : "rose-600");
+  const displayedColorRef = useRef(type === "to-tailwind" ? "teal-500" : "#E11D48");
   const colorName = useRef(getColorName(type === "to-tailwind" ? '#43e5a2' : "#E11D48").name);
   const [copyMessage, setCopyMessage] = useState('');
   const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
@@ -63,10 +63,6 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     }
   }
 
-  function clearInput () {
-    setInputColor('');
-  }
-
   function showPreview() {
     setShowColorPreview(showColorPreview => !showColorPreview);
   }
@@ -91,7 +87,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           className="p-2 w-full sm:w-72 text-white bg-neutral-900 rounded-md"
         />
         {inputColor && (
-          <button onClick={clearInput} className="text-white -ml-8 -top-1.5 h-7 w-8 cursor-pointer relative">
+          <button onClick={() =>  setInputColor('')} className="text-white -ml-8 -top-1.5 h-7 w-8 cursor-pointer relative">
             <svg className="absolute inset-0 m-auto" width="11" height="12" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path 
                 d="M10 1.50714L8.99286 0.5L5 4.49286L1.00714 0.5L0 1.50714L3.99286 5.5L0 9.49286L1.00714 10.5L5 6.50714L8.99286 10.5L10 9.49286L6.00714 5.5L10 1.50714Z" 
