@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import namer, { type Color } from 'color-namer';
 import chroma from 'chroma-js';
 import colorToTailwindClass from '@/scripts/toTailwind';
-import { findColorInTailwind } from '@/scripts/fromTailwind';
 import Popup from './popup';
+import ColorComparison from './comparison';
 import ColorPreview from './preview';
 
 type ColorComponentProps = {
@@ -67,14 +67,6 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     setShowColorPreview(showColorPreview => !showColorPreview);
   }
 
-  function getTextColor (bgColor: string): string {
-    const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
-    const blackContrast = chroma.contrast(bgColor, '#292524') as number;
-
-    return whiteContrast > blackContrast ? '#E5E5E5' : '#292524';
-  }
-
-
   return (
     <>
     <div className="w-full border border-neutral-700 rounded-md mt-12">
@@ -97,22 +89,12 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           </button>
         )}
       </div>
-      <div className="flex justify-center w-full" onClick={() => void handleColorCopy()}>
-        <div
-          style={{ backgroundColor: findColorInTailwind(displayedColorRef.current, lastValidColor.current) }}
-          className="h-32 m-2 w-full rounded-md relative cursor-pointer"
-        >
-          <div 
-            className="absolute inset-0 flex items-center justify-center text-black"
-            style={{ color: getTextColor(findColorInTailwind(displayedColorRef.current, lastValidColor.current)) }}
-          >
-            <div className='font-medium flex flex-col gap-1 text-center'>
-              <span className='text-2xl'>{colorName.current}</span>
-              <span className='text-sm p-1'>{displayedColorRef.current}</span>  
-            </div>
-          </div>
-        </div>
-      </div>
+      <ColorPreview 
+        colorName={colorName.current}
+        colorCode={displayedColorRef.current}
+        lastValidColorCode={lastValidColor.current}
+        onCopy={() => void handleColorCopy()}
+      />
     </div>
 
     {type === "to-tailwind" && 
@@ -129,7 +111,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     )}
 
     {showColorPreview && (
-      <ColorPreview 
+      <ColorComparison 
         originalColor={lastValidColor.current}
         tailwindColor={displayedColorRef.current}
       />

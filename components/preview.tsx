@@ -1,31 +1,44 @@
-import React from 'react';
 import { findColorInTailwind } from '@/scripts/fromTailwind';
+import chroma from 'chroma-js';
+import React from 'react'
 
 type ColorPreviewProps = {
-  originalColor: string;
-  tailwindColor: string;
+  colorCode: string;
+  colorName: string;
+  lastValidColorCode: string;
+  onCopy: () => void;
 }
 
-function ColorPreview({ originalColor, tailwindColor }: ColorPreviewProps) {
+function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode}: ColorPreviewProps){
 
-    return (
+  const bgColor = findColorInTailwind(colorCode, lastValidColorCode);
+  const textColor = getTextColor(bgColor);
+
+  function getTextColor (bgColor: string): string {
+    const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
+    const blackContrast = chroma.contrast(bgColor, '#292524') as number;
+
+    return whiteContrast > blackContrast ? '#E5E5E5' : '#292524';
+  }
+
+  return (
+    <div className="flex justify-center w-full" onClick={onCopy}>
+      <div
+        style={{ backgroundColor: bgColor }}
+        className="h-32 m-2 w-full rounded-md relative cursor-pointer"
+      >
         <div 
-            className='flex flex-col md:flex-row gap-4 mt-12 text-neutral-500'
+          className="absolute inset-0 flex items-center justify-center text-black"
+          style={{ color: textColor }}
         >
-            <div className='w-full'>
-                <p className='font-bold text-lg'>Original Color</p>
-                <p>Original color code: {originalColor}</p>
-                <div className="w-full h-20 md:h-32 rounded-md mt-4" style={{ backgroundColor: originalColor }}/>
-            </div>
-            
-            <div className='w-full'>
-                <p className='font-bold text-lg'>Tailwind Color</p>
-                <p>Tailwind color class: {tailwindColor}</p>
-                <div className="w-full h-20 md:h-32 rounded-md mt-4" style={{ backgroundColor: findColorInTailwind(tailwindColor, originalColor) }}/>
-            </div>
+          <div className='font-medium flex flex-col gap-1 text-center'>
+            <span className='text-2xl'>{colorName}</span>
+            <span className='text-sm p-1'>{colorCode}</span>  
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  )
 }
 
-export default ColorPreview;
-
+export default ColorPreview
