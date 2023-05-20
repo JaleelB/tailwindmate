@@ -11,11 +11,11 @@ export default function Page(){
                 Enter your color code below to convert it to Tailwind CSS color classes.   
             </p>
             <ColorComponent placeholder={'Enter non tailwind color code'} type="to-tailwind"/>
-            <p className="mt-5 sm:mt-3 text-neutral-500 mb-12 lg:mb-20">Click to copy tailwind color class</p>
+            {/* <p className="mt-5 sm:mt-3 text-neutral-500 mb-12 lg:mb-20">Click to copy tailwind color class</p> */}
             <div className="w-full border rounded-md border-neutral-700 mt-12 lg:mt-20">
                 <div className="py-3.5 px-5 border-b border-b-neutral-700 text-white">About</div>
                 <div className="text-white px-5 py-6">
-                    <p className="text-neutral-500 text-base mt-5 sm:mt-3">
+                    <p className="text-neutral-500 text-base">
                         A tool that transforms standard color codes into their Tailwind CSS equivalents.
                         Whether it's color names like 'red', 'blue', or 'green', hex codes, RGB or HSL 
                         values, simply input the color code and let the converter do the work. For instance,
