@@ -15,7 +15,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
   
   const [inputColor, setInputColor] = useState(type === "to-tailwind" ? "#43e5a2" : "rose-600");
-  const displayedColorRef = useRef(type === "to-tailwind" ? "teal-500" : "#E11D48");
+  const displayedColorRef = useRef(type === "to-tailwind" ? "emerald-400" : "#E11D48");
   const colorName = useRef(getColorName(type === "to-tailwind" ? '#43e5a2' : "#E11D48").name);
   const [copyMessage, setCopyMessage] = useState('');
   const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
