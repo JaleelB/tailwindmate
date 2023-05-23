@@ -6,7 +6,7 @@ type ColorPreviewProps = {
   colorCode: string;
   colorName: string;
   lastValidColorCode: string;
-  onCopy: () => void;
+  onCopy: (color: string) => void;
 }
 
 function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode}: ColorPreviewProps){
@@ -22,7 +22,7 @@ function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode}: Color
   }
 
   return (
-    <div className="flex justify-center w-full" onClick={onCopy}>
+    <div className="flex justify-center w-full" onClick={() => onCopy(colorCode)}>
       <div
         style={{ backgroundColor: bgColor }}
         className="h-32 m-2 w-full rounded-md relative cursor-pointer"

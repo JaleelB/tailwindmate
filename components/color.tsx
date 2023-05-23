@@ -38,22 +38,23 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     }
   }
 
-  async function handleColorCopy () {
-    try {
-      await navigator.clipboard.writeText(displayedColorRef.current);
-      setCopyMessage(`Color copied successfully!`);
-      setTimeout(() => {
-        setCopyMessage('');
-      }, 4000);
-    } catch (error) {
-      console.error('Failed to copy color:', error);
-      setCopyMessage(`Failed to copy color code!`);
-      setTimeout(() => {
-        setCopyMessage('');
-      }, 4000);
-    }
+  function handleColorCopy(color: string) {
+    void(async (colorToCopy: string) => {
+      let message = `Color copied successfully!`;
+      try {
+        await navigator.clipboard.writeText(colorToCopy);
+      } catch (error) {
+        console.error('Failed to copy color:', error);
+        message = `Failed to copy color code!`;
+      } finally {
+        setCopyMessage(message);
+        setTimeout(() => {
+          setCopyMessage('');
+        }, 4000);
+      }
+    })(color);
   }
-
+  
   function getColorName (colorCode: string): Color {
     if ((chroma.valid as (color: string) => boolean)(colorCode)) {
       const colorNames = namer(colorCode);
@@ -93,7 +94,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
         colorName={colorName.current}
         colorCode={displayedColorRef.current}
         lastValidColorCode={lastValidColor.current}
-        onCopy={() => void handleColorCopy()}
+        onCopy={handleColorCopy}
       />
     </div>
 
