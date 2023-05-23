@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React from 'react'
+import { usePathname } from 'next/navigation';
 
 
 type NavItem = {
@@ -11,6 +12,8 @@ type NavItem = {
 }
 
 export default function Nav(){
+
+    const params = usePathname();
 
     const navItems: NavItem[] = [
         {
@@ -34,8 +37,6 @@ export default function Nav(){
             ),
           },
     ];
-
-    const [selectedTab, setSelectedTab] = useState(navItems[0]?.type);
     
     return (
         <nav className='w-full'>
@@ -45,11 +46,11 @@ export default function Nav(){
                         key={item.type} 
                         href={item.href}
                         className={`flex items-center justify-center px-3 py-3 ${
-                            selectedTab === item.type
+                            params === item.href
                                 ? 'bg-neutral-800'
                                 : 'text-white'
                             } ${
-                            item.type === 'to-tailwind'
+                            params === 'to-tailwind'
                                 ? 'border-r border-neutral-700'
                                 : 'border-l border-neutral-700'
                             }
@@ -57,7 +58,6 @@ export default function Nav(){
                             text-white text-sm ease-in-out
                             w-full sm:w-36`
                         }
-                        onClick={() => setSelectedTab(item.type)}
                     >
                         <div className='flex gap-1'>
                             {item.icon}
