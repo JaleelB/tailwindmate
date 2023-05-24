@@ -100,7 +100,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
     {type === "to-tailwind" && 
       <button 
-        className="mt-5 sm:mt-3 text-neutral-400 bg-neutral-800 hover:bg-neutral-700 py-2 px-6 font-medium rounded-full"
+        className="mt-5 sm:mt-3 text-neutral-300 bg-neutral-800 hover:bg-neutral-700 py-2 px-6 font-medium rounded-full"
         onClick={showPreview}
       >
        { !showColorPreview ? 'Show color preview' : 'Hide color preview'}

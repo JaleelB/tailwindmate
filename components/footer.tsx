@@ -45,7 +45,7 @@ const Footer = () => {
                   font-normal
                 '
             >
-                <p className="flex md:justify-center pt-8 text-xs leading-5 text-neutral-500">
+                <p className="flex md:justify-center pt-8 text-xs leading-5 text-neutral-400">
                     &copy; {`${year}`} Built by{" "}
                     <Link
                         href="https://github.com/JaleelB"

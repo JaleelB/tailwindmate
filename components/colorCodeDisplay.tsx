@@ -18,7 +18,7 @@ function ColorCodesDisplay({ tailwindColorClass, originalColor, copyFunc }: Colo
   }));
 
   return (
-    <div className='mx-auto max-w-5xl border rounded-md border-neutral-700 bg-neutral-900 text-neutral-400 mt-10 lg:mt-16'>
+    <div className='mx-auto max-w-5xl border rounded-md border-neutral-700 bg-neutral-900 text-neutral-300 mt-10 lg:mt-16'>
       <div className="py-3.5 px-5 border-b border-b-neutral-700 text-white">Color Codes for {tailwindColor}</div>
       <div 
         className='px-5 py-6 grid md:grid-cols-2 gap-y-4 md:gap-x-12'
