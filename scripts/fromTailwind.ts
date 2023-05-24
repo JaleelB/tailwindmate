@@ -10,7 +10,7 @@ export type ColorCodes = {
     hex: string;
 }
 
-export function findColorInTailwind(tailwindClass: string, lastValidColor: string): string {
+export function findTailwindClassHexEquivalent(tailwindClass: string, lastValidColor: string): string {
 
     if(tailwindClass.toLowerCase() === "white" || tailwindClass.toLowerCase() ===  "#fff" || tailwindClass.toLowerCase() === "#ffffff") return "#ffffff";
     if(tailwindClass.toLowerCase() === "black" || tailwindClass.toLowerCase() ===  "#000" || tailwindClass.toLowerCase() === "#000000") return "#000000";

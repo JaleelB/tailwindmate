@@ -18,7 +18,7 @@ function hexToRgb(hex: string): Color {
   return { r, g, b, a };
 }
 
-function findColorInTailwind(hexColor: string, tailwindColors: TailwindColors): [string, string] | null {
+function findEquivalentTailwindClass(hexColor: string, tailwindColors: TailwindColors): [string, string] | null {
   for (const [colorName, color] of Object.entries(tailwindColors)) {
     if (typeof color === "string") {
       if (color.toLowerCase() === hexColor.toLowerCase()) {
@@ -97,7 +97,7 @@ export default function colorToTailwindClass(colorInput: string): string {
   const hexColor = !isColorHexValue(colorInput) ? chroma(colorInput).hex() : colorInput;
   const rgbColor = hexToRgb(hexColor);
 
-  const result = findColorInTailwind(hexColor, twColors);
+  const result = findEquivalentTailwindClass(hexColor, twColors);
   if(result !== null){
     const [colorName, shade] = result;
     if (shade === "DEFAULT") {

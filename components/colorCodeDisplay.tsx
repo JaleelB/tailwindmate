@@ -1,5 +1,5 @@
 import React from 'react';
-import { findColorInTailwind } from '@/scripts/fromTailwind';
+import { findTailwindClassHexEquivalent } from '@/scripts/fromTailwind';
 import { getColorCodes, type ColorCodes } from '@/scripts/fromTailwind';
 
 type ColorCodesDisplayProps = {
@@ -9,7 +9,7 @@ type ColorCodesDisplayProps = {
 };
 
 function ColorCodesDisplay({ tailwindColorClass, originalColor, copyFunc }: ColorCodesDisplayProps) {
-  const tailwindColor = findColorInTailwind(tailwindColorClass, originalColor);
+  const tailwindColor = findTailwindClassHexEquivalent(tailwindColorClass, originalColor);
   const colorCodes: ColorCodes = getColorCodes(tailwindColor);
   
   const colorCodesArray = Object.entries(colorCodes).map(([key, value]) => ({

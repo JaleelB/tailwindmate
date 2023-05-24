@@ -6,6 +6,7 @@ import Popup from './popup';
 import ColorComparison from './comparison';
 import ColorPreview from './preview';
 import ColorCodesDisplay from './colorCodeDisplay';
+import { findTailwindClassHexEquivalent } from '@/scripts/fromTailwind';
 
 type ColorComponentProps = {
   type: string;
@@ -21,22 +22,44 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
   const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
   const [showColorPreview, setShowColorPreview] = useState(false);
 
+  // function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
+  //   setInputColor(event.target.value);
+  //   if (
+  //     event.target.value &&
+  //     typeof chroma.valid === "function" &&
+  //     chroma.valid(event.target.value)
+  //   ) {
+  //     const closestTailwindColor = colorToTailwindClass(event.target.value);
+  //     displayedColorRef.current = closestTailwindColor
+  //     colorName.current = getColorName(event.target.value).name
+  //     lastValidColor.current = event.target.value; 
+  //   } else {
+  //     displayedColorRef.current = lastValidColor.current; 
+  //     colorName.current = getColorName(lastValidColor.current).name;
+  //   }
+  // }
+
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
-    setInputColor(event.target.value);
-    if (
-      event.target.value &&
-      typeof chroma.valid === "function" &&
-      chroma.valid(event.target.value)
-    ) {
-      const closestTailwindColor = colorToTailwindClass(event.target.value);
-      displayedColorRef.current = closestTailwindColor
-      colorName.current = getColorName(event.target.value).name
-      lastValidColor.current = event.target.value; 
-    } else {
-      displayedColorRef.current = lastValidColor.current; 
-      colorName.current = getColorName(lastValidColor.current).name;
+    const newColor = event.target.value;
+    setInputColor(newColor);
+  
+    let colorCode = lastValidColor.current; 
+    let colorClass = lastValidColor.current;
+    
+    if (type === "to-tailwind" && chroma.valid(newColor)) {
+      colorClass = colorToTailwindClass(newColor);
+      colorCode = newColor;
+    } else if (type === "from-tailwind") {
+      colorCode = findTailwindClassHexEquivalent(newColor, lastValidColor.current);
+      console.log("colorCode", colorCode)
+      colorClass = (colorCode && colorCode !== lastValidColor.current) ? newColor : lastValidColor.current;
     }
+  
+    displayedColorRef.current = colorClass;
+    colorName.current = getColorName(colorCode).name;
+    lastValidColor.current = colorCode;
   }
+  
 
   function handleColorCopy(color: string) {
     void(async (colorToCopy: string) => {
