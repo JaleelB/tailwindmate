@@ -5,6 +5,7 @@ import colorToTailwindClass from '@/scripts/toTailwind';
 import Popup from './popup';
 import ColorComparison from './comparison';
 import ColorPreview from './preview';
+import ColorCodesDisplay from './colorCodeDisplay';
 
 type ColorComponentProps = {
   type: string;
@@ -13,7 +14,6 @@ type ColorComponentProps = {
 
 function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
-  
   const [inputColor, setInputColor] = useState(type === "to-tailwind" ? "#43e5a2" : "rose-600");
   const displayedColorRef = useRef(type === "to-tailwind" ? "emerald-400" : "#E11D48");
   const colorName = useRef(getColorName(type === "to-tailwind" ? '#43e5a2' : "#E11D48").name);
@@ -105,6 +105,15 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       >
        { !showColorPreview ? 'Show color preview' : 'Hide color preview'}
       </button>
+    }
+    
+    {
+      type === "from-tailwind" && 
+      <ColorCodesDisplay
+        copyFunc={handleColorCopy}
+        tailwindColorClass={displayedColorRef.current}
+        originalColor={lastValidColor.current}
+      />
     }
     
     {copyMessage && (

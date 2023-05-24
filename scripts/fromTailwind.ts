@@ -2,7 +2,7 @@ import { twColors } from "@/types/colors";
 import chroma from "chroma-js";
 
 
-type ColorCodes = {
+export type ColorCodes = {
     rgb: string;
     rgba: string;
     hsl: string;
