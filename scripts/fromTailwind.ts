@@ -40,9 +40,9 @@ export function getColorCodes(hexColor: string): ColorCodes {
     const hsl: number[] = color.hsl();
 
     const rgbString = `rgb(${rgb[0] ?? 0}, ${rgb[1] ?? 0}, ${rgb[2] ?? 0})`;
-    const rgbaString = `rgba(${rgba[0] ?? 0}, ${rgba[1] ?? 0}, ${rgba[2] ?? 0}, ${rgba[3] ?? 0})`;
-    const hslString = `hsl(${Math.round(hsl[0] ?? 0)}, ${Math.round((hsl[1] ?? 0) * 100)}%, ${Math.round((hsl[2] ?? 0) * 100)}%)`;
-    const hslaString = `hsla(${Math.round(hsl[0] ?? 0)}, ${Math.round((hsl[1] ?? 0) * 100)}%, ${Math.round((hsl[2] ?? 0) * 100)}%, ${Math.round((rgba[3] ?? 0) * 100) / 100})`;
+    const rgbaString = `rgba(${rgba[0] ?? 0}, ${rgba[1] ?? 0}, ${rgba[2] ?? 0}, ${rgba[3] ?? 1})`;
+    const hslString = `hsl(${hsl[0] !== undefined && !isNaN(hsl[0]) ? Math.round(hsl[0]) : 0}, ${hsl[1] !== undefined && !isNaN(hsl[1]) ? Math.round(hsl[1] * 100) : 0}%, ${hsl[2] !== undefined && !isNaN(hsl[2]) ? Math.round(hsl[2] * 100) : 0}%)`;
+    const hslaString = `hsla(${hsl[0] !== undefined && !isNaN(hsl[0]) ? Math.round(hsl[0]) : 0}, ${hsl[1] !== undefined && !isNaN(hsl[1]) ? Math.round(hsl[1] * 100) : 0}%, ${hsl[2] !== undefined && !isNaN(hsl[2]) ? Math.round(hsl[2] * 100) : 0}%, ${rgba[3] ?? 1})`;
 
     return {
         rgb: rgbString,
