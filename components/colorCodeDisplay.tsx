@@ -1,16 +1,14 @@
 import React from 'react';
-import { findTailwindClassHexEquivalent } from '@/scripts/fromTailwind';
 import { getColorCodes, type ColorCodes } from '@/scripts/fromTailwind';
 
 type ColorCodesDisplayProps = {
-  tailwindColorClass: string;
-  originalColor: string;
+  hexColor: string;
   copyFunc: (color: string) => void;
 };
 
-function ColorCodesDisplay({ tailwindColorClass, originalColor, copyFunc }: ColorCodesDisplayProps) {
-  const tailwindColor = findTailwindClassHexEquivalent(tailwindColorClass, originalColor);
-  const colorCodes: ColorCodes = getColorCodes(tailwindColor);
+function ColorCodesDisplay({ hexColor, copyFunc }: ColorCodesDisplayProps) {
+
+  const colorCodes: ColorCodes = getColorCodes(hexColor);
   
   const colorCodesArray = Object.entries(colorCodes).map(([key, value]) => ({
     name: key.toUpperCase(),
@@ -19,7 +17,7 @@ function ColorCodesDisplay({ tailwindColorClass, originalColor, copyFunc }: Colo
 
   return (
     <div className='mx-auto max-w-5xl border rounded-md border-neutral-700 bg-neutral-900 text-neutral-300 mt-10 lg:mt-16'>
-      <div className="py-3.5 px-5 border-b border-b-neutral-700 text-white">Color Codes for {tailwindColor}</div>
+      <div className="py-3.5 px-5 border-b border-b-neutral-700 text-white">Color code conversion</div>
       <div 
         className='px-5 py-6 grid md:grid-cols-2 gap-y-4 md:gap-x-12'
     >
