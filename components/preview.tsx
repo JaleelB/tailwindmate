@@ -1,4 +1,4 @@
-import { findColorInTailwind } from '@/scripts/fromTailwind';
+import { findTailwindClassHexEquivalent } from '@/scripts/fromTailwind';
 import chroma from 'chroma-js';
 import React from 'react'
 
@@ -6,13 +6,16 @@ type ColorPreviewProps = {
   colorCode: string;
   colorName: string;
   lastValidColorCode: string;
+  type: string;
   onCopy: (color: string) => void;
 }
 
-function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode}: ColorPreviewProps){
+function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode, type}: ColorPreviewProps){
 
-  const bgColor = findColorInTailwind(colorCode, lastValidColorCode);
+  const bgColor = findTailwindClassHexEquivalent(colorCode, lastValidColorCode);
   const textColor = getTextColor(bgColor);
+
+  console.log(bgColor, textColor)
 
   function getTextColor (bgColor: string): string {
     const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
@@ -33,7 +36,7 @@ function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode}: Color
         >
           <div className='font-medium flex flex-col gap-1 text-center'>
             <span className='text-2xl'>{colorName}</span>
-            <span className='text-sm p-1'>{colorCode}</span>  
+            <span className='text-sm p-1'>{type === "to-tailwind" ? colorCode : bgColor}</span>  
           </div>
         </div>
       </div>

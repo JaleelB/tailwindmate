@@ -22,22 +22,6 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
   const lastValidColor = useRef(type === "to-tailwind" ? '#43e5a2' : "#E11D48");
   const [showColorPreview, setShowColorPreview] = useState(false);
 
-  // function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
-  //   setInputColor(event.target.value);
-  //   if (
-  //     event.target.value &&
-  //     typeof chroma.valid === "function" &&
-  //     chroma.valid(event.target.value)
-  //   ) {
-  //     const closestTailwindColor = colorToTailwindClass(event.target.value);
-  //     displayedColorRef.current = closestTailwindColor
-  //     colorName.current = getColorName(event.target.value).name
-  //     lastValidColor.current = event.target.value; 
-  //   } else {
-  //     displayedColorRef.current = lastValidColor.current; 
-  //     colorName.current = getColorName(lastValidColor.current).name;
-  //   }
-  // }
 
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
     const newColor = event.target.value;
@@ -51,7 +35,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       colorCode = newColor;
     } else if (type === "from-tailwind") {
       colorCode = findTailwindClassHexEquivalent(newColor, lastValidColor.current);
-      console.log("colorCode", colorCode)
+      console.log(newColor, colorCode)
       colorClass = (colorCode && colorCode !== lastValidColor.current) ? newColor : lastValidColor.current;
     }
   
@@ -78,6 +62,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     })(color);
   }
   
+
   function getColorName (colorCode: string): Color {
     if ((chroma.valid as (color: string) => boolean)(colorCode)) {
       const colorNames = namer(colorCode);
@@ -87,10 +72,12 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
     }
   }
 
+
   function showPreview() {
     setShowColorPreview(showColorPreview => !showColorPreview);
   }
 
+  
   return (
     <>
     <div className="w-full border border-neutral-700 rounded-md mt-12">
@@ -117,7 +104,8 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
         colorName={colorName.current}
         colorCode={displayedColorRef.current}
         lastValidColorCode={lastValidColor.current}
-        onCopy={handleColorCopy}
+        onCopy={handleColorCopy} 
+        type={type}
       />
     </div>
 
@@ -134,8 +122,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       type === "from-tailwind" && 
       <ColorCodesDisplay
         copyFunc={handleColorCopy}
-        tailwindColorClass={displayedColorRef.current}
-        originalColor={lastValidColor.current}
+        hexColor={lastValidColor.current}
       />
     }
     
