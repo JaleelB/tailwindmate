@@ -28,7 +28,7 @@ export default function ColorLayout({
                                 animation: 'gradient-animation 5s ease-in-out infinite',
                             }}
                         >
-                            <Link href={'/'}>
+                            <Link href={'https://github.com/JaleelB/tailwindmate'}>
                                 Visit Project Repo
                             </Link>
                         </button>
