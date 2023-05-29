@@ -15,8 +15,6 @@ function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode, type}:
   const bgColor = findTailwindClassHexEquivalent(colorCode, lastValidColorCode);
   const textColor = getTextColor(bgColor);
 
-  console.log(bgColor, textColor)
-
   function getTextColor (bgColor: string): string {
     const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
     const blackContrast = chroma.contrast(bgColor, '#292524') as number;
@@ -25,7 +23,7 @@ function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode, type}:
   }
 
   return (
-    <div className="flex justify-center w-full" onClick={() => onCopy(colorCode)}>
+    <div className="flex justify-center w-full" onClick={() => onCopy(type === "to-tailwind" ? colorCode : bgColor)}>
       <div
         style={{ backgroundColor: bgColor }}
         className="h-32 m-2 w-full rounded-md relative cursor-pointer"
