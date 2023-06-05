@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import ColorComponent from "components/color";
+import Link from "next/link";
 
 
 export default function Page(){
@@ -15,20 +16,26 @@ export default function Page(){
                 <div className="py-3.5 px-5 border-b border-b-neutral-700 text-white">About</div>
                 <div className="text-white px-5 py-6">
                     <p className="text-neutral-300 text-base">
-                        A tool that transforms standard color codes into their Tailwind CSS equivalents.
-                        Whether it's color names like 'red', 'blue', or 'green', hex codes, RGB or HSL 
-                        values, simply input the color code and let the converter do the work. For instance,
-                        a 'red' color input would yield 'red-600', thus streamlining your transition to Tailwind CSS.
+                        Welcome to TailwindMate, your ultimate tool for effortless color conversion in Tailwind. With TailwindMate, 
+                        you can save time and enhance your workflow by easily converting colors to their closest Tailwind counterparts 
+                        or translating Tailwind color classes to HEX, RGB, RGBA, HSL, and HSLA formats.
+                    </p>
+                    <p className="text-neutral-300 text-base mt-5 sm:mt-3">
+                        Simply enter your color code or tailwind class and let TailwindMate 
+                        do the work. Whether it's color names like 'red', 'blue', or 'green', hex codes, RGB or HSL values or 
+                        tailwind color classes like rose-600 or teal-400, TailwindMate's 
+                        converter will provide you with the closest matching Tailwind color class or equivalent color code values.
                     </p>
                     <p className="text-neutral-300 text-base mt-5 sm:mt-3">
                         The conversion process is automatic and instant. Once your input is recognized, 
-                        the converter generates the closest matching Tailwind color class. This not only 
-                        saves you time but also ensures accuracy in your Tailwind development process.
+                        the converter generates the closest matching Tailwind color class or the equivalent color code values for you tailwind class. 
+                        This not only saves you time but also ensures accuracy in your Tailwind development process.
                     </p>
                     <p className="text-neutral-300 text-base mt-5 sm:mt-3">
-                        After conversion, the Tailwind class is ready for use. Click the color component to 
-                        copy the Tailwind class to your clipboard, ready to be pasted into your Tailwind CSS project. 
-                        Experience the ease of translating conventional color codes into Tailwind classes.
+                        After conversion, the tailwind color class or equivalent color codes are ready for use. Click the color component to 
+                        copy the color class/codes to your clipboard, ready to be pasted into your  project. 
+                        Visit <Link className="underline" href="https://github.com/JaleelB/tailwindmate">the project repo</Link> to learn more 
+                        about how TailwindMate can help you find the nearest Tailwind color and streamline your development process.  
                     </p>
                 </div>
             </div>

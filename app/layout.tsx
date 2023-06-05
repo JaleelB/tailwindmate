@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
     title: "Tailwindmate",
-    description: "A collection of all chatgpt plugins",
+    description: "A go-to tool for effortless color conversion in Tailwind CSS. Convert standard color codes to their Tailwind equivalents, translate Tailwind color classes to HEX, RGB, HSL, and more. Streamline your Tailwind development process with TailwindMate.",
     twitter: {
       card: "summary_large_image",
       title: "Tailwindmate",
