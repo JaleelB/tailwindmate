@@ -1,7 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client";
 import ColorComponent from "components/color";
+import { type Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: 'Color Conversion - TailwindMate',
+    description: 'Convert standard color codes to their Tailwind equivalents with TailwindMate. Streamline your Tailwind CSS development process with our color conversion tool.',
+    openGraph: {
+      title: 'Color Conversion - TailwindMate',
+      description: 'Convert standard color codes to their Tailwind equivalents with TailwindMate. Streamline your Tailwind CSS development process with our color conversion tool.',
+      images: ['/web-shot.png'],
+    },
+};
 
 
 export default function Page(){
@@ -9,7 +19,7 @@ export default function Page(){
     return (
         <section className='w-full max-w-[1200px] mx-auto'>
             <p className="text-neutral-300 text-base mt-5 sm:mt-3 max-w-[750px]">
-                Enter your color code below to convert it to Tailwind CSS color classes.   
+                Enter your color code below to convert it to tailwind color classes.   
             </p>
             <ColorComponent placeholder={'Enter non tailwind color code'} type="to-tailwind"/>
             <div className="w-full border rounded-md border-neutral-700 mt-12 lg:mt-20">

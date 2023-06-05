@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useRef } from 'react';
 import namer, { type Color } from 'color-namer';
 import chroma from 'chroma-js';
