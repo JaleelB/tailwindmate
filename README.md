@@ -22,6 +22,7 @@ We hope that TailwindMate will significantly simplify your Tailwind CSS developm
 ## Acknowledgments
 I would like to extend our sincere thanks to the Tailwind CSS community and all the open-source contributors who inspire us to create tools that make the development process more efficient and enjoyable.
 
+Licensed under the [MIT license](https://github.com/JaleelB/tailwindmate/blob/main/LICENSE.md).
 
 
 
