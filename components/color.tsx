@@ -25,7 +25,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
 
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
-    const newColor = event.target.value;
+    const newColor = event.target.value.toLowerCase();
     setInputColor(newColor);
   
     let colorCode = lastValidColor.current; 
@@ -36,7 +36,6 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
       colorCode = newColor;
     } else if (type === "from-tailwind") {
       colorCode = findTailwindClassHexEquivalent(newColor, lastValidColor.current);
-      console.log(newColor, colorCode)
       colorClass = (colorCode && colorCode !== lastValidColor.current) ? newColor : lastValidColor.current;
     }
   
