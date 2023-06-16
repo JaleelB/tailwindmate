@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 export default function Page(){
   return (
     <section className='w-full max-w-[1200px] mx-auto'>
-       <p className="text-neutral-300 text-base mt-5 sm:mt-3 max-w-[750px]">
-          Enter the tailwind color class below to get the equivalent color codes in various color code formats.
+       <p className="text-neutral-300 text-[15px] mt-5 sm:mt-3 max-w-[750px]">
+          Enter your tailwind color class below to get the equivalent color codes in various color code formats.
       </p>
       <ColorComponent placeholder={'Enter tailwind color class'} type="from-tailwind"/>
     </section>

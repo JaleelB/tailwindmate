@@ -87,7 +87,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           value={inputColor}
           placeholder={placeholder}
           onChange={handleColorChange}
-          className="p-2 w-full sm:w-72 text-white bg-neutral-900 rounded-md"
+          className="p-2 w-full sm:w-72 text-neutral-300 bg-neutral-900 rounded-md"
         />
         {inputColor && (
           <button onClick={() =>  setInputColor('')} className="text-white -ml-8 -top-1.5 h-7 w-8 cursor-pointer relative">
@@ -111,7 +111,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
     {type === "to-tailwind" && 
       <button 
-        className="mt-5 sm:mt-3 text-neutral-300 bg-neutral-800 hover:bg-neutral-700 py-2 px-6 font-medium rounded-full"
+        className="mt-5 sm:mt-3 text-neutral-300 bg-neutral-800 hover:bg-neutral-700 py-2.5 px-6 text-[15px] rounded-md transition-all duration-200 ease-in-out"
         onClick={showPreview}
       >
        { !showColorPreview ? 'Show color preview' : 'Hide color preview'}

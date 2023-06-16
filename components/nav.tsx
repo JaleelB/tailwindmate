@@ -51,8 +51,8 @@ export default function Nav(){
                                 : 'text-white'
                             } ${
                             params === 'to-tailwind'
-                                ? 'border-r border-neutral-700'
-                                : 'border-l border-neutral-700'
+                                ? 'border-r border-neutral-700 rounded-r-md'
+                                : 'border-l border-neutral-700 rounded-l-md'
                             }
                             transition-all duration-200 
                             text-white text-sm ease-in-out
