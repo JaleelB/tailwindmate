@@ -14,7 +14,6 @@ const Header = () => {
         >
           tailwindmate
         </Link>
-        {/* <div className='text-white hidden sm:block'>Made by Jaleel Bennett</div> */}
       </div>
     </header>
   )

@@ -8,6 +8,7 @@ import ColorComparison from './comparison';
 import ColorPreview from './preview';
 import ColorCodesDisplay from './colorCodeDisplay';
 import { findTailwindClassHexEquivalent } from '@/scripts/fromTailwind';
+import preprocessColor from '@/scripts/preprocessColor';
 
 type ColorComponentProps = {
   type: string;
@@ -25,13 +26,18 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
 
 
   function handleColorChange (event: React.ChangeEvent<HTMLInputElement>) {
-    const newColor = event.target.value.toLowerCase();
-    setInputColor(newColor);
+    const color = event.target.value.toLowerCase();
+    setInputColor(color);
   
     let colorCode = lastValidColor.current; 
     let colorClass = lastValidColor.current;
     
+    const newColor = preprocessColor(color);
+    console.log("new color: ", newColor)
+    console.log(chroma.valid(newColor))
+
     if (type === "to-tailwind" && chroma.valid(newColor)) {
+      console.log("valid color")
       colorClass = colorToTailwindClass(newColor);
       colorCode = newColor;
     } else if (type === "from-tailwind") {
