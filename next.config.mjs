@@ -21,5 +21,8 @@ const config = {
   experimental: {
     appDir: true,
   },
+  images:{
+    domains:['api.producthunt.com']
+  }
 };
 export default config;
