@@ -29,7 +29,7 @@
 
 TailwindMate is a versatile web app specifically tailored for Tailwind CSS users. The application effortlessly finds the equivalent Tailwind class for a given color in various formats and converts Tailwind color classes to other standard formats including HEX, RGB, HSL, RGBA, and HSLA.
 
-![Product Demo Video](https://raw.githubusercontent.com/JaleelB/tailwindmate/main/public/demo.mov)
+https://github.com/JaleelB/tailwindmate/assets/78449846/348294b8-3e4d-4c4c-bfa4-bdebacf0207a
 
 ## Features
 
