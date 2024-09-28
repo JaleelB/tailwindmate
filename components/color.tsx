@@ -87,7 +87,7 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
   return (
     <>
     <div className="w-full border border-neutral-700 rounded-md mt-12">
-      <div className="w-full bg-neutral-800 p-2 relative">
+      <div className="w-full bg-neutral-800 p-2 relative flex justify-start items-center">
         <input
           type="text"
           value={inputColor}
@@ -96,8 +96,8 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
           className="p-2 w-full sm:w-72 text-neutral-300 bg-neutral-900 rounded-md"
         />
         {inputColor && (
-          <button onClick={() =>  setInputColor('')} className="text-white -ml-8 -top-1.5 h-7 w-8 cursor-pointer relative">
-            <svg className="absolute inset-0 m-auto" width="11" height="12" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <button onClick={() => setInputColor('')} className="w-6 relative -left-7 h-6">
+            <svg className="m-auto" width="11" height="12" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path 
                 d="M10 1.50714L8.99286 0.5L5 4.49286L1.00714 0.5L0 1.50714L3.99286 5.5L0 9.49286L1.00714 10.5L5 6.50714L8.99286 10.5L10 9.49286L6.00714 5.5L10 1.50714Z" 
                 fill="white"
