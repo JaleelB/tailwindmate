@@ -65,7 +65,16 @@ export function alphaPercentToHex(percent: number): string {
 export function getAlphaFromTailwindClassArr(shade: string): [string, string] {
     const parts = shade.split('/');
     const alpha = parts[1] || "100"; // Default alpha to "1" if not provided
-    return [alpha, parts[0] || ""]; // Default parts[0] to an empty string if undefined
+    if (isIntString(alpha)) {
+      return [alpha, parts[0] || ""]; // Default parts[0] to an empty string if undefined
+    }else{
+        return ['100', parts[0] || ""]; // Default parts[0] to an empty string if undefined
+    }
+}
+
+export function isIntString(value: string): boolean {
+  const num = Number(value);
+  return Number.isInteger(num) && value.trim() !== '' && !isNaN(num);
 }
 
 export function removePrefixesAndAddToArr(tailwindClass: string): string[] {
