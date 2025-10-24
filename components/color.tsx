@@ -72,6 +72,15 @@ function ColorComponent({ type, placeholder }: ColorComponentProps) {
   function getColorName (colorCode: string): Color {
     if ((chroma.valid as (color: string) => boolean)(colorCode)) {
       const colorNames = namer(colorCode);
+      const color = chroma(colorCode);
+      const alpha = color.alpha();
+      if (alpha < 1) {
+        let colorNameString = { ...(colorNames.ntc[0] || { name: 'Unknown', hex: '', distance: -1 }) };
+        colorNameString.name = colorNameString.name + ` (${Math.round(alpha * 100)}%)`;
+        console.log('colorNames with alpha', colorNames.ntc[0]);
+        return colorNameString;
+      }
+      console.log('colorNames', colorNames.ntc[0]);
       return colorNames.ntc[0] || { name: 'Unknown', hex: '', distance: -1 };
     } else {
       return { name: 'Invalid', hex: '', distance: -1 };
