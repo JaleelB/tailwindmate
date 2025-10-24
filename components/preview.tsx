@@ -15,12 +15,25 @@ function ColorPreview ({colorName, colorCode, onCopy, lastValidColorCode, type}:
   const bgColor = findTailwindClassHexEquivalent(colorCode, lastValidColorCode);
   const textColor = getTextColor(bgColor);
 
-  function getTextColor (bgColor: string): string {
-    const whiteContrast = chroma.contrast(bgColor, '#E5E5E5') as number;
-    const blackContrast = chroma.contrast(bgColor, '#292524') as number;
-
-    return whiteContrast > blackContrast ? '#E5E5E5' : '#292524';
+function getTextColor (bgColor: string): string {
+  try {
+    const color = chroma(bgColor);
+    const alpha = color.alpha();
+    console.log('Alpha:', alpha);
+    // Bei Transparenz < 50% immer dunkler Text
+    if (alpha < 0.5) {
+      return '#E5E5E5';
+    }
+    
+    // Standard-Luminanz-Regel für opake/halbtransparente Farben
+    const luminance = color.luminance();
+    console.log('Luminance:', luminance);
+    return luminance > 0.5 ? '#292524' : '#E5E5E5';
+    
+  } catch {
+    return '#292524';
   }
+}
 
   return (
     <div className="flex justify-center w-full" onClick={() => onCopy(type === "to-tailwind" ? colorCode : bgColor)}>
